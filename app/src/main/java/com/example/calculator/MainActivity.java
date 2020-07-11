@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     private static final int SIGNIFICANT_DIGITS = 12; //number of digits after the decimal point
+    private static final int MAX_STRING_SIZE = 15; //max number of allowable characters in any textfield
 
     //String used to format numbers to have correct number of decimal places
     private static String DECIMAL_FORMAT = "#.";
@@ -151,11 +152,23 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String inputText = userInput.getText().toString(); //whatever is in the input field
                 String toAppend = ((Button)v).getText().toString(); //whatever is to be added
-                if(!inputText.isEmpty() && toAppend.equals("(") && Character.isDigit(inputText.toCharArray()[inputText.length()-1])) { //if open bracket, automatically add '*'
-                    toAppend = "*" + toAppend;
+                if(inputText.length() < MAX_STRING_SIZE) {
+                    if(!inputText.isEmpty() && toAppend.equals("(") && Character.isDigit(inputText.toCharArray()[inputText.length()-1])) { //if open bracket, automatically add '*'
+                        toAppend = "*" + toAppend;
+                    }
+                    try {
+                        double d = Double.parseDouble(inputText);
+                        if(d == 0) {
+                            setInput(toAppend);
+                        } else {
+                            appendToInput(toAppend); //add to the input
+                        }
+                    } catch (Exception e) {
+                        appendToInput(toAppend); //add to the input
+                    }
+                    updateResult(""+evaluate(userInput.getText().toString())); //update the result field accordingly
                 }
-                appendToInput(toAppend); //add to the input
-                updateResult(""+evaluate(userInput.getText().toString())); //update the result field accordingly
+
             }
         });
     }
