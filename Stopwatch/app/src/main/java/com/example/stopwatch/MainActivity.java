@@ -9,7 +9,8 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button buttonStartStop; //Start/Stop button
+    private Button buttonStartStop; //Start/Stop button]
+    private Button reset; //Reset button
 
     private TextView mainDisplay; //TextView to display
 
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initialize() {
         buttonStartStop = findViewById(R.id.buttonStartStop);
+        reset = findViewById(R.id.buttonReset);
 
         mainDisplay = findViewById(R.id.mainDisplay);
 
@@ -33,14 +35,34 @@ public class MainActivity extends AppCompatActivity {
         buttonStartStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (stopped) { //stopped
-                    ((Button) v).setText("STOP");
-                } else { //running
-                    ((Button) v).setText("START");
+                if (stopped) { //in stopped state, want to start
+                    start();
+                } else { //in running state, want to stop
+                    stop();
                 }
-                stopped = !stopped;
             }
         });
+
+        reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stop();
+            }
+        });
+    }
+
+    private void start() {
+        if(buttonStartStop != null) {
+            stopped = false;
+            buttonStartStop.setText("STOP");
+        }
+    }
+
+    private void stop() {
+        if(buttonStartStop != null) {
+            stopped = true;
+            buttonStartStop.setText("START");
+        }
     }
 }
 

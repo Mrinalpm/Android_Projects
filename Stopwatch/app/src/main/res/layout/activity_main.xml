@@ -8,7 +8,7 @@
 
 
     <Button
-        android:id="@+id/buttonStartStop2"
+        android:id="@+id/buttonReset"
         android:layout_width="195dp"
         android:layout_height="83dp"
         android:layout_marginBottom="40dp"
@@ -39,7 +39,7 @@
         android:layout_marginBottom="32dp"
         android:text="START"
         android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonStartStop2"
+        app:layout_constraintBottom_toTopOf="@+id/buttonReset"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.453"
         app:layout_constraintStart_toStartOf="parent" />
