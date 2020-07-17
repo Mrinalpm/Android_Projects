@@ -2,7 +2,11 @@ package com.example.calculator;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import java.lang.*;
 import java.text.DecimalFormat;
@@ -181,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             double d = Double.parseDouble(result); //valid input that can be stored as a numeric double
             if(Double.isInfinite(d)) { //as a result of division by zero
-                setResult(formatString("Can't divide by zero"));
+                setResult(formatString("Can't divide by zero"), Color.RED);
             } else {
                 if(!Double.isNaN(d)) { //incomplete input results in NaN (Ex: "25+" will result in number being NaN)
                     setResult(formatString(""+d));
@@ -213,6 +217,16 @@ public class MainActivity extends AppCompatActivity {
     */
     private void setResult(String str) {
         result.setText(str);
+    }
+
+    /*
+    Set the result to a string of a particular colour
+    @param: RGB value of a particular colour
+    */
+    private void setResult(String str, int color) {
+        SpannableString ss = new SpannableString(str);
+        ss.setSpan(new ForegroundColorSpan(color), 0, str.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        result.setText(ss);
     }
 
     /*
